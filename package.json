@@ -1,0 +1,16 @@
+{
+  "name": "mongooseprojectlily",
+  "version": "1.0.0",
+  "description": "practice project with Lily",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "RhyceCake",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.8.3"
+  }
+}
