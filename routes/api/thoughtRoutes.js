@@ -3,35 +3,66 @@ const { User, Thought } = require("../../models");
 const reactionSchema = require("../../models/Reaction");
 
 //get all thoughts
-// router.get("api/thoughts", async ({body}, res) => {
-//     await User.find({}).sort({date: -1})
-//     .then(users => {
-//       res.json(users);
-//     })
-//     .catch(err => {
-//       res.status(404).json(err);
-//     });
-// })
+router.get("/", async (req, res) => {
+    await Thought.find({})
+    .then(thoughts => {
+      res.json(thoughts);
+    })
+    .catch(err => {
+      res.status(404).json(err);
+    });
+})
 
 // //get a single thought by id
-// router.get("api/thoughts/:thoughtId", (req, res) => {
+router.get("/:thoughtId", async (req, res) => {
+  await Thought.findById(req.params.thoughtId)
+  .then(thought => {
+      res.json(thought)
+  })
+  .catch(err => {
+      res.status(404).json(err)
+  })
+})
 
-// })
 
-// //post a new thought
-// // post to create a ndw thought (dont forget to push the created thoughts id to the associated useers thoughts array field)
-// router.post("api/thoughts") 
-// //??????
+// post to create a new thought (dont forget to push the created thoughts id to the associated useers thoughts array field)
+router.post("/", async (req, res) => {
+  try {
+      const thoughtData = await Thought.create(req.body);
+
+      await User.findOneAndUpdate({userName: req.body.userName}, {$push:{thoughts: thoughtData._id}})
+
+      res.json(thoughtData)
+
+
+  } catch(err) {
+      console.log(err);
+      res.status(400).json(err);
+  }
+})
+
 
 // //put to update a thought by id
-// router.put("api/thoughts/:thoughtId", ({body}, res) => {
-
-// })
+router.put("/:thoughtId", async (req, res) => {
+  try {
+    const data = await Thought.findOneAndUpdate({_id: req.params.thoughtId}, req.body, {new: true})
+    res.json(data)
+} catch(err) {
+    console.log(err);
+    res.status(400).json(err);
+}
+})
  
 // //delete to remove thought by id
-// router.delete("api/thoughts/:thoughtId", (req, res) => {
-
-// })
+router.delete("/:thoughtId", async (req, res) => {
+  await Thought.deleteOne({_id: req.params.thoughtId})
+  .then(thought => {
+      res.json(thought)
+  })
+  .catch(err => {
+      res.status(404).json(err)
+  })
+})
     
 
 // //post to create reaction stored in a single thought's reaction array field
