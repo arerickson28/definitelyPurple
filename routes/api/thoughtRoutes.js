@@ -3,15 +3,15 @@ const { User, Thought } = require("../../models");
 const reactionSchema = require("../../models/Reaction");
 
 //get all thoughts
-router.get("api/thoughts", async ({body}, res) => {
-    await User.find({}).sort({date: -1})
-    .then(users => {
-      res.json(users);
-    })
-    .catch(err => {
-      res.status(404).json(err);
-    });
-})
+// router.get("api/thoughts", async ({body}, res) => {
+//     await User.find({}).sort({date: -1})
+//     .then(users => {
+//       res.json(users);
+//     })
+//     .catch(err => {
+//       res.status(404).json(err);
+//     });
+// })
 
 // //get a single thought by id
 // router.get("api/thoughts/:thoughtId", (req, res) => {

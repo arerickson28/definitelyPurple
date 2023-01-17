@@ -6,7 +6,6 @@ const reactionSchema = require("../../models/Reaction");
 
 //get all users
 router.get("/",  async (req, res) => {
-    // res.send("hey, Liy is great!")
     await User.find({})
     .then(users => {
       res.json(users);
@@ -16,7 +15,7 @@ router.get("/",  async (req, res) => {
     });
 })
 
-//get a single user by id with populated though and friend data
+//get a single user by id with populated thought and friend data
 router.get("/:userId", async (req, res) => {
     await User.findById(req.params.userId)
     .then(user => {
@@ -28,22 +27,8 @@ router.get("/:userId", async (req, res) => {
 })
 
 // //post a new user
-// router.post("/", async ({body}, res) => {
-//     try{
-//         const data = await users.create(body);
-//         res.json(data);
-
-//     } catch(err) {
-//         console.log(err);
-//         res.status(400).json(err);
-//     }
-
-// })
-
-
-router.post("/", async ({ body }, res) => {
-    // res.json(body)
-    try{
+router.post("/", async ({body}, res) => {
+    try {
         const data = await User.create(body);
         res.json(data);
 
@@ -53,9 +38,16 @@ router.post("/", async ({ body }, res) => {
     }
 })
 // //put to updata a user by id
-// router.put("/:userId", (req, res) => {
-
-// })
+router.put("/:userId", async (req, res) => {
+    try {
+        const data = await User.findOneAndUpdate({_id: req.params.userId}, req.body, {new: true})
+        res.json(data)
+    } catch(err) {
+        console.log(err);
+        res.status(400).json(err);
+    }
+   
+})
 
 // //delete to remove user by id
 // router.delete("/:userId", (req, res) => {
