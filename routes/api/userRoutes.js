@@ -73,15 +73,6 @@ router.put("/:userId/friends/:friendId", async (req, res) => {
 // // delete to remove a freiend from a users friend list
 router.put("/:userId/friendRemove/:friendId", async (req, res) => {
     try {
-        // const userData = await User.findById(req.params.userId)
-
-        // let oldFriendsArray = userData.friends
-        // let newFriendsArray = oldFriendsArray.pop(req.params.friendId)
-
-        // await User.findOneAndUpdate({_id: req.params.userId}, {friends: newFriendsArray}, {new: true})
-        
-        // res.send(`oldfriendsArray: ${oldFriendsArray}, newFriendsArray: ${newFriendsArray}`)
-        // res.send("hello")
         const data = await User.findOneAndUpdate({_id: req.params.userId}, {$pull:{friends: req.params.friendId}}, {new: true})
         res.json(data)
     } catch(err) {

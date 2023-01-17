@@ -2,10 +2,10 @@ const { ObjectId } = require("bson");
 const {Schema} = require("mongoose");
 
 const reactionSchema = new Schema({
-    reactionId: {
-        type: ObjectId,
-        default: new ObjectId
-    },
+    // reactionId: {
+    //     type: ObjectId,
+    //     default: new ObjectId
+    // },
     reactionBody: {
         type: String,
         required: true,

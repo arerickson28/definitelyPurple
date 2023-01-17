@@ -66,9 +66,15 @@ router.delete("/:thoughtId", async (req, res) => {
     
 
 // //post to create reaction stored in a single thought's reaction array field
-// router.post("/api/thought/:thoughtId/reaction", ({body}, res) => {
-
-// })
+router.put("/:thoughtId/reaction", async (req, res) => {
+  try {
+    const data = await Thought.findOneAndUpdate({_id: req.params.thoughtId}, {$push:{reactions: req.body}}, {new: true})
+    res.json(data)
+} catch(err) {
+    console.log(err);
+    res.status(400).json(err);
+}
+})
 
 // // delete to pull and remove a reaction by the reactions reactionid value
 // router.delete("/api/thought/thoughtId/reaction/:reactionId", (req, res) => {
