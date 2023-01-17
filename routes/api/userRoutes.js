@@ -12,15 +12,20 @@ router.get("/",  async (req, res) => {
       res.json(users);
     })
     .catch(err => {
-    //   res.status(404).json(err);
-    res.send("your route is working")
+      res.status(404).json(err);
     });
 })
 
-// //get a single user by id with populated though and friend data
-// router.get("/:userId", (req, res) => {
-
-// })
+//get a single user by id with populated though and friend data
+router.get("/:userId", async (req, res) => {
+    await User.findById(req.params.userId)
+    .then(user => {
+        res.json(user)
+    })
+    .catch(err => {
+        res.status(404).json(err)
+    })
+})
 
 // //post a new user
 // router.post("/", async ({body}, res) => {
